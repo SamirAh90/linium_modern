@@ -1,0 +1,13 @@
+Options -Indexes
+RewriteEngine On
+
+# Never expose server-side credentials.
+RewriteRule ^api/(config|bootstrap|schema|seed)\.(php|sql|json)$ - [F,L,NC]
+
+# Let Apache serve real files and directories directly.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Client-side routes such as /behandlingar and /admin load the React app.
+RewriteRule ^ index.html [L]
